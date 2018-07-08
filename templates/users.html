@@ -1,0 +1,66 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+    Users
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/logout">Log out</a>
+    </nav>
+    <div class="container">
+        <div class="row centred">
+            <div class="col-sm-offset-4 col-sm-4">
+                <form class="form-signin" method="POST">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class=flashes>
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                    <h1>Hello, {{ name }}</h1>
+                    <h2 class="form-signin-heading">Please create or delete user</h2>
+                    {{ form.hidden_tag() }}
+                    {{ wtf.form_field(form.username) }}
+                    {{ wtf.form_field(form.password) }}
+                    {{ form.create(class='btn btn-lg btn-primary btn-block') }}
+                    {{ form.delete(class='btn btn-lg btn-danger btn-block') }}
+                </form>
+            </div>
+        </div>
+        <div class="row centred">
+            <h2 class="sub-header">Section title</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {#                    <tr>#}
+                    {#                        <td>1,001</td>#}
+                    {#                        <td>Lorem</td>#}
+                    {#                        <td>ipsum</td>#}
+                    {#                        <td>dolor</td>#}
+                    {#                        <td>sit</td>#}
+                    {#                    </tr>#}
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.password }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}
